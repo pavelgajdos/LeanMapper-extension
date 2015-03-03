@@ -78,9 +78,9 @@ class BaseEntity extends Entity
 
 
 
-    public function getEnumValues($propertyName)
+    public static function getEnumValues($propertyName)
     {
-        $property = $this->getCurrentReflection()->getEntityProperty($propertyName);
+        $property = self::getReflection()->getEntityProperty($propertyName);
         if (!$property->containsEnumeration()) {
             throw new InvalidArgumentException;
         }
@@ -92,5 +92,6 @@ class BaseEntity extends Entity
 
         return $values;
     }
+
 }
 
