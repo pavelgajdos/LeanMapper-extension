@@ -159,4 +159,20 @@ abstract class Repository extends LR
         $query = $this->createQuery()->where("@$PK", $id);
         return $this->findOneBy($query);
     }
+
+    /**
+     * @return \DibiDataSource
+     */
+    public function getDataSource()
+    {
+        return $this->createFluent()->toDataSource();
+    }
+
+    /**
+     * @return \LeanMapper\Fluent
+     */
+    public function getFluent()
+    {
+        return $this->createFluent();
+    }
 }
