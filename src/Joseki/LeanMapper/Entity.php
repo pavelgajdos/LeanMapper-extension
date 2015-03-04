@@ -18,13 +18,11 @@ class BaseEntity extends Entity
     protected static $enumReplacements = array();
 
 
-
     protected function findBy($field, EntityQuery $query)
     {
         $entities = $this->queryProperty($field, $query);
         return $this->entityFactory->createCollection($entities);
     }
-
 
 
     protected function findOneBy($field, EntityQuery $query)
@@ -38,19 +36,16 @@ class BaseEntity extends Entity
     }
 
 
-
     protected function findCountBy($field, EntityQuery $query)
     {
         return count($this->queryProperty($field, $query));
     }
 
 
-
     protected function createQueryObject($field)
     {
         return new EntityQuery($this, $field);
     }
-
 
 
     public function __call($name, array $arguments)
@@ -61,7 +56,6 @@ class BaseEntity extends Entity
             return parent::__call($name, $arguments);
         }
     }
-
 
 
     public function __set($name, $value)
@@ -81,7 +75,6 @@ class BaseEntity extends Entity
             parent::__set($name, $value);
         }
     }
-
 
 
     public static function getEnumValues($propertyName)
@@ -110,6 +103,24 @@ class BaseEntity extends Entity
         }
 
         return $values;
+    }
+
+    public static function getPropertySelectValues($propertyName, $includeEmpty = true, $emptyValueLast = false)
+    {
+        $replacements = self::getEnumReplacements($propertyName);
+
+        if ($includeEmpty) {
+
+            if ($emptyValueLast === false)
+                $replacements = array_reverse($replacements, true);
+
+            $replacements[''] = '';
+
+            if ($emptyValueLast === false)
+                $replacements = array_reverse($replacements, true);
+        }
+
+        return $replacements;
     }
 }
 
