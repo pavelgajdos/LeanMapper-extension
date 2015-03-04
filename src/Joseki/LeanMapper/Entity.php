@@ -11,6 +11,12 @@ class BaseEntity extends Entity
 {
     protected static $magicMethodsPrefixes = array('findOneBy', 'findCountBy', 'findBy');
 
+    /**
+     * @var array
+     * @description [ 'propertyName' => [ 'enumValue1'=>'Value 1', 'enumValue2'=>'Value 2', ... ], ... ]
+     */
+    protected static $enumReplacements = array();
+
 
 
     protected function findBy($field, EntityQuery $query)
@@ -93,5 +99,17 @@ class BaseEntity extends Entity
         return $values;
     }
 
+    public static function getEnumReplacements($propertyName)
+    {
+        $enum = self::getEnumValues($propertyName);
+
+        $values = array();
+
+        foreach ($enum as $key) {
+            $values[$key] = isset(self::$enumReplacements[$propertyName][$key]) ? self::$enumReplacements[$propertyName][$key] : $key;
+        }
+
+        return $values;
+    }
 }
 
