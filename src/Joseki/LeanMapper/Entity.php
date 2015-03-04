@@ -94,12 +94,12 @@ class BaseEntity extends Entity
 
     public static function getEnumReplacements($propertyName)
     {
-        $enum = self::getEnumValues($propertyName);
+        $enum = static::getEnumValues($propertyName);
 
         $values = array();
 
         foreach ($enum as $key) {
-            $values[$key] = isset(self::$enumReplacements[$propertyName][$key]) ? self::$enumReplacements[$propertyName][$key] : $key;
+            $values[$key] = isset(static::$enumReplacements[$propertyName][$key]) ? static::$enumReplacements[$propertyName][$key] : $key;
         }
 
         return $values;
@@ -107,7 +107,7 @@ class BaseEntity extends Entity
 
     public static function getPropertySelectValues($propertyName, $includeEmpty = true, $emptyValueLast = false)
     {
-        $replacements = self::getEnumReplacements($propertyName);
+        $replacements = static::getEnumReplacements($propertyName);
 
         if ($includeEmpty) {
 
