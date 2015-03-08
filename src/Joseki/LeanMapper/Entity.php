@@ -136,5 +136,17 @@ class BaseEntity extends Entity
 
         return $column;
     }
+
+    public static function getColumnByPropertyName($property)
+    {
+        $reflection = self::getReflection();
+
+        $entity = $reflection->getEntityProperty($property);
+
+        if ($entity)
+            return $entity->getColumn();
+
+        return $property;
+    }
 }
 
