@@ -122,5 +122,19 @@ class BaseEntity extends Entity
 
         return $replacements;
     }
+
+    public static function getPropertyNameByColumn($column)
+    {
+        $reflection = self::getReflection();
+
+        $entities = $reflection->getEntityProperties();
+
+        foreach ($entities as $e) {
+            if ($e->getColumn() == $column)
+                return $e->getName();
+        }
+
+        return $column;
+    }
 }
 
