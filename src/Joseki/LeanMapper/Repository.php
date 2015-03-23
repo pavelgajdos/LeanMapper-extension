@@ -175,4 +175,30 @@ abstract class Repository extends LR
     {
         return $this->createFluent();
     }
+
+    /**
+     *
+     */
+    public function startTransaction()
+    {
+        $this->connection->query("START TRANSACTION")->execute();
+    }
+
+    /**
+     * Alias for startTransaction
+     */
+    public function begin()
+    {
+        $this->startTransaction();
+    }
+
+    public function commit()
+    {
+        $this->connection->query("COMMIT")->execute();
+    }
+
+    public function rollback()
+    {
+        $this->connection->query("ROLLBACK")->execute();
+    }
 }
