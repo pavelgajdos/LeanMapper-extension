@@ -181,7 +181,7 @@ abstract class Repository extends LR
      */
     public function startTransaction()
     {
-        $this->connection->query("START TRANSACTION")->execute();
+        $this->connection->query("START TRANSACTION");
     }
 
     /**
@@ -194,11 +194,11 @@ abstract class Repository extends LR
 
     public function commit()
     {
-        $this->connection->query("COMMIT")->execute();
+        $this->connection->query("COMMIT");
     }
 
     public function rollback()
     {
-        $this->connection->query("ROLLBACK")->execute();
+        $this->connection->query("ROLLBACK");
     }
 }
