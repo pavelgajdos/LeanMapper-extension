@@ -201,4 +201,32 @@ abstract class Repository extends LR
     {
         $this->connection->query("ROLLBACK");
     }
+
+    /**
+     * @param $id
+     * @param $name
+     * @param Query $query
+     * @return array
+     */
+    public function getSelectItems($id, $name, Query $query = null)
+    {
+        if ($query)
+            $rows = $this->findBy($query);
+        else
+            $rows = $this->findAll();
+
+        $items = [];
+
+        $parts = explode("->", $name);
+        foreach ($rows as $r) {
+            $val = $r;
+            foreach ($parts as $p) {
+                $val = $val->$p;
+            }
+
+            $items[$r->$id] = $val;
+        }
+
+        return $items;
+    }
 }
