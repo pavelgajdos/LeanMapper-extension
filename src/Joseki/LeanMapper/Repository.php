@@ -206,9 +206,10 @@ abstract class Repository extends LR
      * @param $id
      * @param $name
      * @param Query $query
+     * @param bool $prompt
      * @return array
      */
-    public function getSelectItems($id, $name, Query $query = null)
+    public function getSelectItems($id, $name, Query $query = null, $prompt = false)
     {
         if ($query)
             $rows = $this->findBy($query);
@@ -216,6 +217,10 @@ abstract class Repository extends LR
             $rows = $this->findAll();
 
         $items = [];
+
+        if ($prompt) {
+            $items[null] = is_string($prompt)?$prompt:" ";
+        }
 
         $parts = explode("->", $name);
         foreach ($rows as $r) {
