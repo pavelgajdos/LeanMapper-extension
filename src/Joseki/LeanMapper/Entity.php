@@ -148,5 +148,10 @@ class BaseEntity extends Entity
 
         return $property;
     }
+
+    public function columnOf($property)
+    {
+        return $this->getColumnByPropertyName($property);
+    }
 }
 
