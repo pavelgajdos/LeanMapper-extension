@@ -149,9 +149,9 @@ class BaseEntity extends Entity
         return $property;
     }
 
-    public function columnOf($property)
+    public static function columnOf($property)
     {
-        return $this->getColumnByPropertyName($property);
+        return self::getColumnByPropertyName($property);
     }
 }
 
