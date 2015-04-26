@@ -143,8 +143,13 @@ class BaseEntity extends Entity
 
         $entity = $reflection->getEntityProperty($property);
 
-        if ($entity)
-            return $entity->getColumn();
+        if ($entity) {
+            $column = $entity->getColumn();
+
+            if ($column == $property)
+                return self::camelToUnderscore($column);
+            else return $column;
+        }
 
         return $property;
     }
@@ -152,6 +157,19 @@ class BaseEntity extends Entity
     public static function columnOf($property)
     {
         return self::getColumnByPropertyName($property);
+    }
+
+    /**
+     * camelCase -> underdash_separated.
+     * @param  string
+     * @return string
+     */
+    protected static function camelToUnderscore($s)
+    {
+        $s = preg_replace('#(.)(?=[A-Z])#', '$1_', $s);
+        $s = strtolower($s);
+        $s = rawurlencode($s);
+        return $s;
     }
 }
 
