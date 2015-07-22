@@ -216,7 +216,7 @@ abstract class Repository extends LR
         else
             $rows = $this->findAll();
 
-        $items = [];
+        $items = array();
 
         if ($prompt) {
             $items[null] = is_string($prompt)?$prompt:" ";
